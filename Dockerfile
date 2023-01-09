@@ -21,10 +21,12 @@ RUN apk update && \
         nginx \
         libjpeg-turbo-dev \
         libpng-dev \
+        libpq-dev \
         linux-headers \
         python3-dev \
-        libpq-dev
-RUN python3 setup.py install
+        supervisor
+
+RUN pip3 install setuptools-rust && python3 setup.py install
 
 # Copy entire supervisor configurations
 COPY ./etc/supervisord.conf /etc/supervisord.conf
