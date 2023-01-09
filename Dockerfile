@@ -66,6 +66,8 @@ ENV ENABLE_JOB_QUEUE=True
 ENV USER_LIMIT=100
 
 COPY ./scripts/entrypoint.sh /
+COPY ./scripts/zou.sh /
+COPY ./scripts/zou-event.sh /
 
 RUN adduser -S -s /bin/bash -h /opt/zou -u 1000 zou
 WORKDIR /
