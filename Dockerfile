@@ -39,7 +39,6 @@ FROM builder as build
 # kitsu environment vars
 # ----------------------
 ENV WORKERS=3
-ENV TIMEOUT=300
 ENV DB_HOST=localhost
 ENV DB_PORT=5432
 ENV DB_USERNAME=zou
