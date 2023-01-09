@@ -57,9 +57,10 @@ ENV MAIL_DEFAULT_SENDER=youremail@example.com
 ENV DOMAIN_NAME=localhost
 ENV DOMAIN_PROTOCOL=http
 ENV ENABLE_JOB_QUEUE=True
-ENV PREVIEW_FOLDER=/opt/zou/previews
 ENV USER_LIMIT=100
 
+RUN adduser -S -s /bin/bash -h /opt/zou -u 1000 zou
+WORKDIR /opt/zou
 USER zou
 EXPOSE 8000
 ENTRYPOINT ["/entrypoint.sh"]
