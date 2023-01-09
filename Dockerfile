@@ -2,7 +2,7 @@
 # zou Docker Image
 # ----------------------
 # syntax=docker/dockerfile:1.4
-FROM --platform=$BUILDPLATFORM python:3.11-alpine AS builder
+FROM python:3.11-alpine AS builder
 LABEL maintainer="Hompimpa admin@hompimpastudio.co.id"
 RUN echo "Build zou"
 
