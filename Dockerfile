@@ -11,23 +11,21 @@ ENV LANG=C.UTF-8
 
 WORKDIR /src
 COPY zou /src
-RUN <<EOF
-apk update
-apk add --no-cache \
-    bash \
-    build-base \
-    bzip2 \
-    ffmpeg \
-    jpeg-dev \
-    libjpeg-turbo-dev \
-    libpng-dev \
-    linux-headers \
-    python3-dev \
-    libpq-dev
-cd zou
-sed -i "s/\s\{4,\}gevent==21.8.0/    gevent==20.9.0/g" setup.cfg
-python3 setup.py install
-EOF
+RUN apk update && \
+    apk add --no-cache \
+        bash \
+        build-base \
+        bzip2 \
+        ffmpeg \
+        jpeg-dev \
+        libjpeg-turbo-dev \
+        libpng-dev \
+        linux-headers \
+        python3-dev \
+        libpq-dev
+RUN cd zou && \
+    sed -i "s/\s\{4,\}gevent==21.8.0/    gevent==20.9.0/g" setup.cfg && \
+    python3 setup.py install
 
 COPY ./scripts/entrypoint.sh /
 
