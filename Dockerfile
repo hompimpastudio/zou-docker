@@ -65,9 +65,9 @@ ENV DOMAIN_PROTOCOL=http
 ENV ENABLE_JOB_QUEUE=True
 ENV USER_LIMIT=100
 
+COPY ./scripts/zou.sh /usr/local/bin/zou.sh
+COPY ./scripts/zou-event.sh /usr/local/bin/zou-event.sh
 COPY ./scripts/entrypoint.sh /
-COPY ./scripts/zou.sh /
-COPY ./scripts/zou-event.sh /
 
 RUN adduser -S -s /bin/bash -h /opt/zou -u 1000 zou
 WORKDIR /
