@@ -24,7 +24,8 @@ RUN apk update && \
         libpq-dev \
         linux-headers \
         python3-dev \
-        supervisor
+        supervisor \
+        syslog-ng
 
 RUN pip3 install setuptools-rust && python3 setup.py install
 
