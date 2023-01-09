@@ -2,7 +2,7 @@
 # zou Docker Image
 # ----------------------
 # syntax=docker/dockerfile:1.4
-FROM python:3.10-alpine AS builder
+FROM python:3.7-alpine AS builder
 LABEL maintainer="Hompimpa admin@hompimpastudio.co.id"
 RUN echo "Build zou"
 
@@ -18,16 +18,20 @@ RUN apk update && \
         bzip2 \
         ffmpeg \
         jpeg-dev \
+        nginx \
         libjpeg-turbo-dev \
         libpng-dev \
         linux-headers \
         python3-dev \
         libpq-dev
-RUN sed -i "s/\s\{4,\}gevent==21.8.0/    gevent==20.9.0/g" setup.cfg && \
-    python3 setup.py install && \
-    pip3 install --no-cache-dir greenlet==0.4.17
+RUN python3 setup.py install
 
-COPY ./scripts/entrypoint.sh /
+# Copy entire supervisor configurations
+COPY ./etc/supervisord.conf /etc/supervisord.conf
+COPY ./etc/syslog-ng/conf.d/zou.conf /etc/syslog-ng/conf.d/zou.conf
+COPY ./etc/supervisor/conf.d/nginx.conf /etc/supervisor/conf.d/nginx.conf
+COPY ./etc/supervisor/conf.d/zou.conf /etc/supervisor/conf.d/zou.conf
+COPY ./etc/nginx/http.d/default.conf /etc/nginx/http.d/default.conf
 
 FROM builder as build
 
@@ -60,8 +64,10 @@ ENV DOMAIN_PROTOCOL=http
 ENV ENABLE_JOB_QUEUE=True
 ENV USER_LIMIT=100
 
+COPY ./scripts/entrypoint.sh /
+
 RUN adduser -S -s /bin/bash -h /opt/zou -u 1000 zou
-WORKDIR /opt/zou
-USER zou
-EXPOSE 8000
+WORKDIR /
+
+EXPOSE 8080
 ENTRYPOINT ["/entrypoint.sh"]
