@@ -25,7 +25,7 @@ RUN apk update && \
         libpq-dev
 RUN sed -i "s/\s\{4,\}gevent==21.8.0/    gevent==20.9.0/g" setup.cfg && \
     python3 setup.py install && \
-    pip3 install --no-cache-dir --no-deps greenlet==0.4.17
+    pip3 install --no-cache-dir greenlet==0.4.17
 
 COPY ./scripts/entrypoint.sh /
 
