@@ -61,4 +61,5 @@ ENV PREVIEW_FOLDER=/opt/zou/previews
 ENV USER_LIMIT=100
 
 USER zou
+EXPOSE 8000
 ENTRYPOINT ["/entrypoint.sh"]
