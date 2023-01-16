@@ -67,6 +67,7 @@ ENV ENABLE_JOB_QUEUE=True
 ENV ENABLE_JOB_QUEUE_REMOTE=True
 ENV USER_LIMIT=100
 ENV PYTHON_EGG_CACHE=/opt/zou/.cache
+ENV INDEXES_FOLDER=/opt/zou/.indexes
 
 COPY ./scripts/zou.sh /usr/local/bin/zou.sh
 COPY ./scripts/zou-event.sh /usr/local/bin/zou-event.sh
